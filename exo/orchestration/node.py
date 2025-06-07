@@ -100,6 +100,8 @@ class Node:
     if self.inference_engine.__class__.__name__ == 'MLXDynamicShardInferenceEngine':
       supported_engine_names.append('mlx')
       supported_engine_names.append('tinygrad')
+    elif self.inference_engine.__class__.__name__ == 'LlamaCppInferenceEngine':
+      supported_engine_names.append('llama_cpp')
     else:
       supported_engine_names.append('tinygrad')
     return supported_engine_names
