@@ -54,6 +54,7 @@ class InferenceEngine(ABC):
 inference_engine_classes = {
   "mlx": "MLXDynamicShardInferenceEngine",
   "tinygrad": "TinygradDynamicShardInferenceEngine",
+  "llama_cpp": "LlamaCppInferenceEngine",
   "dummy": "DummyInferenceEngine",
 }
 
@@ -71,6 +72,9 @@ def get_inference_engine(inference_engine_name: str, shard_downloader: ShardDown
     tinygrad.helpers.DEBUG.value = int(os.getenv("TINYGRAD_DEBUG", default="0"))
 
     return TinygradDynamicShardInferenceEngine(shard_downloader)
+  elif inference_engine_name == "llama_cpp":
+    from exo.inference.llama_cpp.inference import LlamaCppInferenceEngine
+    return LlamaCppInferenceEngine(shard_downloader)
   elif inference_engine_name == "dummy":
     from exo.inference.dummy_inference_engine import DummyInferenceEngine
     return DummyInferenceEngine()
